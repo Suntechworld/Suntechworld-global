@@ -7,6 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+const supabase = supabase.createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
+
+async function handleSignUp(email, password, fullName) {
+    // 1. Create the user in Supabase Auth
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+            data: { full_name: fullName }
+        }
+    });
+
+    if (error) {
+        alert("Error: " + error.message);
+    } else {
+        alert("Success! Check your email for a verification link.");
+        // Optional: Save additional data to your 'profiles' table
+    }
+}
 
 </script>
 
